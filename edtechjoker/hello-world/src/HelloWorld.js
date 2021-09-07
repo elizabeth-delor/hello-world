@@ -1,4 +1,4 @@
-import { html, css, LitElement } from 'lit';
+import { html, css, LitElement, _$LE } from 'lit';
 
 export class HelloWorld extends LitElement {
   static get styles() {
@@ -14,7 +14,7 @@ export class HelloWorld extends LitElement {
   static get properties() {
     return {
       title: { type: String },
-      counter: { type: Number },
+      counter: { type: Number }, //reflective thing
     };
   }
 
@@ -23,9 +23,12 @@ export class HelloWorld extends LitElement {
     this.title = 'Hey there';
     this.counter = 5;
   }
-
+//:host ([counter = 10]) reflective thing
   __increment() {
     this.counter += 1;
+    if (this.counter === 10) {
+      this.shadowRoot.querySelector('button').style.backgroundColor = "red";
+    }
   }
 
   render() {
@@ -34,4 +37,5 @@ export class HelloWorld extends LitElement {
       <button @click=${this.__increment}>increment</button>
     `;
   }
+  
 }
